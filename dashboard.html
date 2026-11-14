@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f5fb">
+    <title>Dashboard · Promemoria</title>
+    <link rel="stylesheet" href="dashboard.css">
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <a class="brand" href="dashboard.html"><span class="brand-mark">✓</span><span>Promemoria<small>IL TUO SPAZIO</small></span></a>
+        <p class="nav-label">MENU</p>
+        <nav aria-label="Sezioni"><button class="nav-item active" data-filter="all"><span>▦</span>Tutte le attività</button><button class="nav-item" data-filter="today"><span>◷</span>Oggi</button><button class="nav-item" data-filter="upcoming"><span>⌁</span>In arrivo</button><button class="nav-item" data-filter="completed"><span>✓</span>Completate</button></nav>
+        <div class="sidebar-note"><span class="lock">◇</span><strong>I tuoi dati, solo tuoi.</strong><p>Le attività sono salvate in locale nel tuo profilo Chrome.</p></div>
+        <div class="sidebar-footer">Promemoria personali <span>v1.1</span></div>
+      </aside>
+      <main class="main-content">
+        <header class="page-header"><div><p class="eyebrow" id="date-label"></p><h1>La tua giornata, organizzata.</h1><p class="header-subtitle">Un passo alla volta: hai tutto sotto controllo.</p></div><button id="add-task-top" class="primary-button" type="button"><span>＋</span> Nuova attività</button></header>
+        <section class="stats" aria-label="Riepilogo attività">
+          <article class="stat-card"><span class="stat-icon purple">▦</span><div><span class="stat-label">Attività aperte</span><strong id="stat-pending">0</strong></div><span class="stat-caption">da completare</span></article>
+          <article class="stat-card"><span class="stat-icon blue">◷</span><div><span class="stat-label">In programma oggi</span><strong id="stat-today">0</strong></div><span class="stat-caption">per oggi</span></article>
+          <article class="stat-card"><span class="stat-icon green">✓</span><div><span class="stat-label">Completate</span><strong id="stat-completed">0</strong></div><span class="stat-caption">ottimo lavoro</span></article>
+        </section>
+        <section id="editor-card" class="editor-card">
+          <div class="editor-heading"><div><span class="editor-icon">✦</span><div><h2 id="form-heading">Crea un promemoria</h2><p>Piccole cose, grandi progressi.</p></div></div><button id="close-editor" class="close-button" type="button" aria-label="Chiudi form">×</button></div>
+          <form id="task-form">
+            <input id="task-id" type="hidden">
+            <label class="field title-field"><span>Attività</span><input id="task-title" maxlength="120" placeholder="Es. Preparare la presentazione" required></label>
+            <label class="field"><span>Data e ora</span><input id="task-due" type="datetime-local" required></label>
+            <label class="field"><span>Categoria</span><select id="task-category"><option>Personale</option><option>Studio</option><option>Lavoro</option><option>Casa</option><option>Salute</option></select></label>
+            <label class="field"><span>Priorità</span><select id="task-priority"><option value="normale">Normale</option><option value="alta">Alta</option><option value="bassa">Bassa</option></select></label>
+            <div class="form-actions"><button id="cancel-edit" class="secondary-button" type="button">Annulla</button><button class="primary-button" type="submit" id="save-task">Salva attività</button></div>
+          </form>
+        </section>
+        <section class="tasks-panel">
+          <div class="tasks-heading"><div><h2 id="list-heading">Tutte le attività</h2><p id="list-subtitle">I tuoi promemoria, in un unico posto.</p></div><button id="clear-completed" class="clear-button" type="button">Rimuovi completate</button></div>
+          <div class="toolbar"><label class="search-box"><span>⌕</span><input id="search" type="search" placeholder="Cerca un'attività…" aria-label="Cerca un'attività"></label><label class="category-filter"><span>Categoria</span><select id="category-filter"><option value="all">Tutte</option><option>Personale</option><option>Studio</option><option>Lavoro</option><option>Casa</option><option>Salute</option></select></label><label class="sort-filter"><span>Ordina</span><select id="sort"><option value="date">Data</option><option value="priority">Priorità</option><option value="title">Nome</option></select></label></div>
+          <ul id="task-list" class="task-list"></ul>
+          <div id="empty-state" class="empty-state" hidden><span>✦</span><h3>Nessuna attività qui</h3><p>Prova un altro filtro oppure crea un nuovo promemoria.</p><button id="empty-add" class="text-button" type="button">＋ Crea attività</button></div>
+        </section>
+        <footer class="page-footer">Creato per aiutarti a concentrarti su ciò che conta. <span>♡</span></footer>
+      </main>
+    </div>
+    <p id="status" class="sr-only" role="status" aria-live="polite"></p>
+    <script src="dashboard.js"></script>
+  </body>
+</html>

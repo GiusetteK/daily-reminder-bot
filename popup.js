@@ -1,120 +1,59 @@
 const STORAGE_KEY = "reminderTasks";
-const form = document.querySelector("#task-form");
-const titleInput = document.querySelector("#task-title");
-const dueInput = document.querySelector("#task-due");
+const form = document.querySelector("#quick-form");
 const list = document.querySelector("#task-list");
-const count = document.querySelector("#task-count");
 const emptyState = document.querySelector("#empty-state");
 const status = document.querySelector("#status");
+const dueInput = document.querySelector("#task-due");
 
 function localDateTimeValue(date) {
-  const offset = date.getTimezoneOffset() * 60_000;
-  return new Date(date.getTime() - offset).toISOString().slice(0, 16);
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60_000).toISOString().slice(0, 16);
 }
-
-function getTasks() {
-  return chrome.storage.local.get(STORAGE_KEY)
-    .then((stored) => stored[STORAGE_KEY] ?? []);
-}
-
-function formatDate(value) {
+function getTasks() { return chrome.storage.local.get(STORAGE_KEY).then((data) => data[STORAGE_KEY] ?? []); }
+function dayKey(date) { return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`; }
+function formatDue(value) {
   const date = new Date(value);
-  return new Intl.DateTimeFormat("it-IT", {
-    dateStyle: "medium",
-    timeStyle: "short"
-  }).format(date);
+  if (dayKey(date) === dayKey(new Date())) return `Oggi, ${date.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" })}`;
+  return date.toLocaleDateString("it-IT", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 }
+function openDashboard() { chrome.tabs.create({ url: chrome.runtime.getURL("dashboard.html") }); }
+document.querySelector("#open-dashboard").addEventListener("click", openDashboard);
+document.querySelector("#see-all").addEventListener("click", openDashboard);
 
-function makeButton(label, className, action, taskId) {
-  const button = document.createElement("button");
-  button.type = "button";
-  button.textContent = label;
-  button.className = className;
-  button.setAttribute("aria-label", `${label} promemoria`);
-  button.addEventListener("click", () => action(taskId));
-  return button;
-}
-
-async function renderTasks() {
+async function render() {
   const tasks = await getTasks();
-  tasks.sort((a, b) => new Date(a.dueAt) - new Date(b.dueAt));
+  const pending = tasks.filter((task) => !task.done).sort((a, b) => new Date(a.dueAt) - new Date(b.dueAt));
+  const today = pending.filter((task) => dayKey(new Date(task.dueAt)) === dayKey(new Date()));
+  document.querySelector("#today-heading").textContent = new Intl.DateTimeFormat("it-IT", { weekday: "long", day: "numeric", month: "long" }).format(new Date());
+  document.querySelector("#today-count").textContent = String(today.length);
+  document.querySelector("#today-summary").textContent = today.length ? `${today.length} ${today.length === 1 ? "attività da completare" : "attività da completare"}` : "La tua giornata è libera!";
   list.replaceChildren();
-
-  const pendingCount = tasks.filter((task) => !task.done).length;
-  count.textContent = String(pendingCount);
-  emptyState.hidden = tasks.length > 0;
-
-  for (const task of tasks) {
-    const item = document.createElement("li");
-    item.className = `task${task.done ? " task-done" : ""}`;
-
-    const details = document.createElement("div");
-    details.className = "task-details";
-    const title = document.createElement("span");
-    title.className = "task-title";
-    title.textContent = task.title;
-    const due = document.createElement("time");
-    due.className = "task-time";
-    due.dateTime = task.dueAt;
-    due.textContent = task.done ? "Completata" : formatDate(task.dueAt);
-    details.append(title, due);
-
-    const actions = document.createElement("div");
-    actions.className = "task-actions";
-    if (!task.done) {
-      actions.append(makeButton("Fatto", "complete-button", markDone, task.id));
-    }
-    actions.append(makeButton("Elimina", "delete-button", deleteTask, task.id));
-    item.append(details, actions);
-    list.append(item);
+  for (const task of pending.slice(0, 3)) {
+    const item = document.createElement("li"); item.className = "task";
+    const dot = document.createElement("span"); dot.className = "task-dot";
+    const info = document.createElement("div"); info.className = "task-info";
+    const title = document.createElement("span"); title.className = "task-title"; title.textContent = task.title;
+    const time = document.createElement("span"); time.className = "task-time"; time.textContent = formatDue(task.dueAt);
+    info.append(title, time);
+    const category = document.createElement("span"); category.className = "task-category"; category.textContent = task.category || "Personale";
+    item.append(dot, info, category); list.append(item);
   }
-}
-
-async function updateTasks(mutator) {
-  const tasks = await getTasks();
-  await chrome.storage.local.set({ [STORAGE_KEY]: mutator(tasks) });
-  chrome.runtime.sendMessage({ type: "tasks-changed" }).catch(() => {});
-  await renderTasks();
-}
-
-function markDone(id) {
-  return updateTasks((tasks) => tasks.map((task) =>
-    task.id === id ? { ...task, done: true } : task
-  ));
-}
-
-function deleteTask(id) {
-  return updateTasks((tasks) => tasks.filter((task) => task.id !== id));
+  emptyState.hidden = pending.length > 0;
 }
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
-  const title = titleInput.value.trim();
+  const titleInput = document.querySelector("#task-title");
   const dueAt = new Date(dueInput.value);
-
-  if (!title || !Number.isFinite(dueAt.getTime())) {
-    status.textContent = "Inserisci un'attività e una data valida.";
-    return;
+  if (!titleInput.value.trim() || !Number.isFinite(dueAt.getTime()) || dueAt <= new Date()) {
+    status.textContent = "Inserisci un'attività e scegli un orario futuro."; return;
   }
-  if (dueAt.getTime() <= Date.now()) {
-    status.textContent = "Scegli un orario nel futuro.";
-    return;
-  }
-
   const tasks = await getTasks();
-  tasks.push({ id: crypto.randomUUID(), title, dueAt: dueAt.toISOString(), done: false, notified: false });
+  tasks.push({ id: crypto.randomUUID(), title: titleInput.value.trim(), dueAt: dueAt.toISOString(), category: document.querySelector("#task-category").value, priority: "normale", done: false, notified: false });
   await chrome.storage.local.set({ [STORAGE_KEY]: tasks });
   chrome.runtime.sendMessage({ type: "tasks-changed" }).catch(() => {});
-
-  form.reset();
-  dueInput.value = localDateTimeValue(new Date(Date.now() + 60 * 60 * 1000));
-  status.textContent = "Promemoria aggiunto!";
-  await renderTasks();
+  form.reset(); dueInput.value = localDateTimeValue(new Date(Date.now() + 60 * 60 * 1000));
+  status.textContent = "Promemoria aggiunto!"; await render();
 });
-
-chrome.storage.onChanged.addListener((changes, area) => {
-  if (area === "local" && changes[STORAGE_KEY]) void renderTasks();
-});
-
+chrome.storage.onChanged.addListener((changes, area) => { if (area === "local" && changes[STORAGE_KEY]) void render(); });
 dueInput.value = localDateTimeValue(new Date(Date.now() + 60 * 60 * 1000));
-void renderTasks();
+void render();

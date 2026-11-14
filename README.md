@@ -1,13 +1,17 @@
 # Promemoria personali per Chrome
 
-Una piccola estensione Chrome per creare attività e ricevere notifiche all'orario scelto. Non richiede bot Telegram, server o account: attività e scadenze restano nello spazio locale dell'estensione nel tuo profilo Chrome.
+Una estensione Chrome per organizzare attività e ricevere notifiche all'orario scelto. Include una dashboard completa, categorie, priorità, ricerca e filtri. Non richiede bot Telegram, server o account: le attività restano nello spazio locale dell'estensione nel tuo profilo Chrome.
 
 ## Funzioni
 
-- Aggiunta di attività con data e ora.
+- Dashboard con riepilogo delle attività aperte, di oggi e completate.
+- Creazione rapida dal popup e form completo nella dashboard.
+- Categorie (Personale, Studio, Lavoro, Casa e Salute) e livelli di priorità.
+- Ricerca, filtri per attività (tutte, oggi, in arrivo, completate) e categoria.
+- Ordinamento per data, priorità o nome.
+- Modifica, completamento, eliminazione e rimozione delle attività completate.
 - Notifiche desktop all'ora impostata.
-- Elenco delle attività, completamento ed eliminazione.
-- Interfaccia in italiano.
+- Interfaccia in italiano, con dati salvati localmente.
 
 ## Installazione in Chrome
 
@@ -16,18 +20,19 @@ Una piccola estensione Chrome per creare attività e ricevere notifiche all'orar
 3. Attiva **Modalità sviluppatore**.
 4. Fai clic su **Carica estensione non pacchettizzata** e seleziona la cartella che contiene `manifest.json`.
 5. Fissa l'estensione dalla barra degli strumenti, se vuoi averla sempre a portata di mano.
-6. Consenti le notifiche di Chrome quando richiesto e aggiungi il primo promemoria.
+6. Fai clic sull'icona per aggiungere rapidamente un promemoria o aprire la dashboard completa.
+7. Consenti le notifiche di Chrome e aggiungi il primo promemoria.
 
 ## Uso
 
-Fai clic sull'icona dell'estensione, scrivi l'attività, scegli una data e un orario futuri e premi **Aggiungi promemoria**. Puoi poi segnare un'attività come completata o eliminarla.
+Dal popup puoi aggiungere un promemoria con titolo, data, ora e categoria. Apri la dashboard con il pulsante ↗ per cercare, filtrare, ordinare e gestire tutte le attività. La dashboard permette anche di modificare priorità e dettagli, segnare attività come completate e rimuoverle.
 
-## Note
+## Note sulla privacy e sulle notifiche
 
-- È un'estensione locale per Chrome, non un bot Telegram e non invia dati a servizi esterni.
+- È un'estensione locale per Chrome: non invia dati a servizi esterni.
 - Chrome deve poter eseguire le notifiche. Se chiudi completamente Chrome, il promemoria potrebbe apparire solo quando Chrome viene riaperto; il comportamento dipende anche dalle impostazioni di sistema e del browser.
 - Disinstallando l'estensione o cancellandone i dati, le attività salvate possono andare perse.
-- Per sviluppare l'estensione, modifica i file e premi **Ricarica** nella pagina `chrome://extensions`.
+- Per applicare modifiche al codice, premi **Ricarica** nella pagina `chrome://extensions`.
 
 ## Licenza
 

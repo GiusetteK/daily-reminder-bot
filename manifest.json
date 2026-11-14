@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Promemoria personali",
-  "version": "1.0.0",
-  "description": "Aggiungi attività e ricevi promemoria direttamente in Chrome. I dati restano sul tuo dispositivo.",
+  "version": "1.1.0",
+  "description": "Organizza attività e promemoria in una dashboard privata dentro Chrome.",
   "permissions": ["storage", "alarms", "notifications"],
   "action": {
     "default_title": "Promemoria personali",
