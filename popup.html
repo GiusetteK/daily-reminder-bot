@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Promemoria personali</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <div class="eyebrow">IL TUO ASSISTENTE</div>
+        <h1>Promemoria</h1>
+        <p class="subtitle">Semplice, privato e direttamente in Chrome.</p>
+      </header>
+
+      <form id="task-form">
+        <label for="task-title">Nuova attività</label>
+        <input id="task-title" name="title" type="text" maxlength="120" placeholder="Es. Studiare inglese" required>
+        <label for="task-due">Quando vuoi il promemoria?</label>
+        <input id="task-due" name="dueAt" type="datetime-local" required>
+        <button class="add-button" type="submit">Aggiungi promemoria</button>
+      </form>
+
+      <section aria-labelledby="tasks-heading">
+        <div class="section-heading">
+          <h2 id="tasks-heading">Le tue attività</h2>
+          <span id="task-count" class="count">0</span>
+        </div>
+        <ul id="task-list" class="task-list"></ul>
+        <p id="empty-state" class="empty-state">Non hai ancora promemoria. Aggiungine uno qui sopra!</p>
+      </section>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+      <footer>I dati sono salvati localmente nel tuo profilo Chrome.</footer>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
