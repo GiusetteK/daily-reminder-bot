@@ -11,6 +11,7 @@
       <header class="topbar">
         <div class="brand-mark" aria-hidden="true">✓</div>
         <div><p class="eyebrow">IL TUO SPAZIO PERSONALE</p><h1>Promemoria</h1></div>
+        <button id="theme-toggle" class="icon-button" type="button" title="Attiva tema scuro" aria-label="Attiva tema scuro">☾</button>
         <button id="open-dashboard" class="icon-button" type="button" title="Apri dashboard" aria-label="Apri dashboard">↗</button>
       </header>
       <section class="welcome-card">
@@ -21,6 +22,7 @@
         <label for="task-title">Aggiungi un promemoria</label>
         <div class="quick-row"><input id="task-title" maxlength="120" placeholder="Cosa devi fare?" required><button type="submit" aria-label="Aggiungi">＋</button></div>
         <div class="quick-row secondary-row"><input id="task-due" type="datetime-local" required><select id="task-category" aria-label="Categoria"><option value="Personale">Personale</option><option value="Studio">Studio</option><option value="Lavoro">Lavoro</option><option value="Casa">Casa</option></select></div>
+        <label class="repeat-control" for="task-repeat">Ripetizione<select id="task-repeat"><option value="none">Una volta</option><option value="daily">Ogni giorno</option></select></label>
       </form>
       <section class="next-section"><div class="section-title"><h2>Prossimi</h2><button id="see-all" class="text-button" type="button">Vedi tutto <span>→</span></button></div><ul id="task-list" class="task-list"></ul><p id="empty-state" class="empty-state" hidden>Nessun promemoria in arrivo. Goditi il momento ✨</p></section>
       <p id="status" class="status" role="status" aria-live="polite"></p>

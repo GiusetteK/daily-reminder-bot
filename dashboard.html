@@ -14,7 +14,7 @@
         <p class="nav-label">MENU</p>
         <nav aria-label="Sezioni"><button class="nav-item active" data-filter="all"><span>▦</span>Tutte le attività</button><button class="nav-item" data-filter="today"><span>◷</span>Oggi</button><button class="nav-item" data-filter="upcoming"><span>⌁</span>In arrivo</button><button class="nav-item" data-filter="completed"><span>✓</span>Completate</button></nav>
         <div class="sidebar-note"><span class="lock">◇</span><strong>I tuoi dati, solo tuoi.</strong><p>Le attività sono salvate in locale nel tuo profilo Chrome.</p></div>
-        <div class="sidebar-footer">Promemoria personali <span>v1.1</span></div>
+        <div class="sidebar-footer"><span>Promemoria personali</span><button id="theme-toggle" class="theme-button" type="button" aria-label="Attiva tema scuro">☾ Tema scuro</button></div>
       </aside>
       <main class="main-content">
         <header class="page-header"><div><p class="eyebrow" id="date-label"></p><h1>La tua giornata, organizzata.</h1><p class="header-subtitle">Un passo alla volta: hai tutto sotto controllo.</p></div><button id="add-task-top" class="primary-button" type="button"><span>＋</span> Nuova attività</button></header>
@@ -31,6 +31,7 @@
             <label class="field"><span>Data e ora</span><input id="task-due" type="datetime-local" required></label>
             <label class="field"><span>Categoria</span><select id="task-category"><option>Personale</option><option>Studio</option><option>Lavoro</option><option>Casa</option><option>Salute</option></select></label>
             <label class="field"><span>Priorità</span><select id="task-priority"><option value="normale">Normale</option><option value="alta">Alta</option><option value="bassa">Bassa</option></select></label>
+            <label class="field"><span>Ripetizione</span><select id="task-repeat"><option value="none">Una volta</option><option value="daily">Ogni giorno</option></select></label>
             <div class="form-actions"><button id="cancel-edit" class="secondary-button" type="button">Annulla</button><button class="primary-button" type="submit" id="save-task">Salva attività</button></div>
           </form>
         </section>
