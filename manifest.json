@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Promemoria personali",
-  "version": "1.2.0",
-  "description": "Organizza attività e promemoria in una dashboard privata dentro Chrome.",
+  "version": "1.3.0",
+  "description": "Organizza i tuoi promemoria in Chrome e importa eventi da un calendario .ics.",
   "permissions": ["storage", "alarms", "notifications"],
   "action": {
     "default_title": "Promemoria personali",

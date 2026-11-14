@@ -1,0 +1,31 @@
+/* Portfolio polish and responsive layout overrides. */
+:root { scroll-behavior: smooth; }
+.sidebar { box-shadow: 4px 0 18px #25213a08; }
+.brand-mark { background: linear-gradient(145deg,#7869ef,#5144c6); }
+.primary-button { transition: transform .16s ease, box-shadow .16s ease, background .16s ease; }
+.primary-button:hover { transform: translateY(-1px); box-shadow: 0 8px 18px #6558d944; }
+.secondary-button, .clear-button, .theme-button { transition: border-color .16s ease, color .16s ease, background .16s ease; }
+.bulk-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
+.danger-button { color: #b35353; }
+.danger-button:hover { border-color: #efcaca; background: #fff7f7; }
+.calendar-import { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 16px 0 2px; padding: 13px 14px; border: 1px solid #e8e5f7; border-radius: 10px; background: linear-gradient(110deg,#faf9ff,#fff); }
+.calendar-copy { display: grid; gap: 4px; }
+.calendar-copy strong { color: #454658; font-size: 10px; }
+.calendar-copy span { color: #9292a2; font-size: 9px; }
+.calendar-import .secondary-button { flex: 0 0 auto; padding: 0 12px; }
+.calendar-source { align-self: center; color: #6558c7; font-size: 9px; white-space: nowrap; }
+.task-row { transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease; }
+.task-row:hover { box-shadow: 0 5px 14px #35304c0b; }
+button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #bdb5ff; outline-offset: 2px; }
+@media (max-width: 760px) {
+  .calendar-import { align-items: flex-start; flex-direction: column; }
+  .calendar-import .secondary-button { min-height: 36px; }
+  .bulk-actions { justify-content: flex-start; }
+  .sidebar { box-shadow: none; }
+}
+:root[data-theme="dark"] .calendar-import { border-color: #39364f; background: linear-gradient(110deg,#29273b,#222432); }
+:root[data-theme="dark"] .calendar-copy strong { color: #e7e5f2; }
+:root[data-theme="dark"] .calendar-copy span { color: #aaa8bb; }
+:root[data-theme="dark"] .danger-button { color: #f0a2a2; }
+:root[data-theme="dark"] .danger-button:hover { border-color: #744949; background: #38292f; }
+:root[data-theme="dark"] .calendar-source { color: #c5bfff; }

@@ -6,15 +6,21 @@
     <meta name="theme-color" content="#f6f5fb">
     <title>Dashboard · Promemoria</title>
     <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="portfolio.css">
   </head>
   <body>
     <div class="shell">
       <aside class="sidebar">
         <a class="brand" href="dashboard.html"><span class="brand-mark">✓</span><span>Promemoria<small>IL TUO SPAZIO</small></span></a>
         <p class="nav-label">MENU</p>
-        <nav aria-label="Sezioni"><button class="nav-item active" data-filter="all"><span>▦</span>Tutte le attività</button><button class="nav-item" data-filter="today"><span>◷</span>Oggi</button><button class="nav-item" data-filter="upcoming"><span>⌁</span>In arrivo</button><button class="nav-item" data-filter="completed"><span>✓</span>Completate</button></nav>
+        <nav aria-label="Sezioni">
+          <button class="nav-item active" data-filter="all"><span>▦</span>Tutte le attività</button>
+          <button class="nav-item" data-filter="today"><span>◷</span>Oggi</button>
+          <button class="nav-item" data-filter="upcoming"><span>⌁</span>In arrivo</button>
+          <button class="nav-item" data-filter="completed"><span>✓</span>Completate</button>
+        </nav>
         <div class="sidebar-note"><span class="lock">◇</span><strong>I tuoi dati, solo tuoi.</strong><p>Le attività sono salvate in locale nel tuo profilo Chrome.</p></div>
-        <div class="sidebar-footer"><span>Promemoria personali</span><button id="theme-toggle" class="theme-button" type="button" aria-label="Attiva tema scuro">☾ Tema scuro</button></div>
+        <div class="sidebar-footer"><span>Promemoria personali · v1.3</span><button id="theme-toggle" class="theme-button" type="button" aria-label="Attiva tema scuro">☾ Tema scuro</button></div>
       </aside>
       <main class="main-content">
         <header class="page-header"><div><p class="eyebrow" id="date-label"></p><h1>La tua giornata, organizzata.</h1><p class="header-subtitle">Un passo alla volta: hai tutto sotto controllo.</p></div><button id="add-task-top" class="primary-button" type="button"><span>＋</span> Nuova attività</button></header>
@@ -29,15 +35,16 @@
             <input id="task-id" type="hidden">
             <label class="field title-field"><span>Attività</span><input id="task-title" maxlength="120" placeholder="Es. Preparare la presentazione" required></label>
             <label class="field"><span>Data e ora</span><input id="task-due" type="datetime-local" required></label>
-            <label class="field"><span>Categoria</span><select id="task-category"><option>Personale</option><option>Studio</option><option>Lavoro</option><option>Casa</option><option>Salute</option></select></label>
+            <label class="field"><span>Categoria</span><select id="task-category"><option>Personale</option><option>Studio</option><option>Lavoro</option><option>Casa</option><option>Salute</option><option>Calendario</option></select></label>
             <label class="field"><span>Priorità</span><select id="task-priority"><option value="normale">Normale</option><option value="alta">Alta</option><option value="bassa">Bassa</option></select></label>
             <label class="field"><span>Ripetizione</span><select id="task-repeat"><option value="none">Una volta</option><option value="daily">Ogni giorno</option></select></label>
             <div class="form-actions"><button id="cancel-edit" class="secondary-button" type="button">Annulla</button><button class="primary-button" type="submit" id="save-task">Salva attività</button></div>
           </form>
         </section>
         <section class="tasks-panel">
-          <div class="tasks-heading"><div><h2 id="list-heading">Tutte le attività</h2><p id="list-subtitle">I tuoi promemoria, in un unico posto.</p></div><button id="clear-completed" class="clear-button" type="button">Rimuovi completate</button></div>
-          <div class="toolbar"><label class="search-box"><span>⌕</span><input id="search" type="search" placeholder="Cerca un'attività…" aria-label="Cerca un'attività"></label><label class="category-filter"><span>Categoria</span><select id="category-filter"><option value="all">Tutte</option><option>Personale</option><option>Studio</option><option>Lavoro</option><option>Casa</option><option>Salute</option></select></label><label class="sort-filter"><span>Ordina</span><select id="sort"><option value="date">Data</option><option value="priority">Priorità</option><option value="title">Nome</option></select></label></div>
+          <div class="tasks-heading"><div><h2 id="list-heading">Tutte le attività</h2><p id="list-subtitle">I tuoi promemoria, in un unico posto.</p></div><div class="bulk-actions"><button id="clear-completed" class="clear-button" type="button">Rimuovi completate</button><button id="clear-all" class="clear-button danger-button" type="button">Rimuovi tutte</button></div></div>
+          <div class="calendar-import"><div class="calendar-copy"><strong>Importa dal tuo calendario</strong><span>Carica un file .ics esportato da Google Calendar, Apple Calendar o Outlook.</span></div><input id="calendar-file" type="file" accept=".ics,text/calendar" hidden><button id="import-calendar" class="secondary-button" type="button">▦ Importa file .ics</button></div>
+          <div class="toolbar"><label class="search-box"><span>⌕</span><input id="search" type="search" placeholder="Cerca un'attività…" aria-label="Cerca un'attività"></label><label class="category-filter"><span>Categoria</span><select id="category-filter"><option value="all">Tutte</option><option>Personale</option><option>Studio</option><option>Lavoro</option><option>Casa</option><option>Salute</option><option>Calendario</option></select></label><label class="sort-filter"><span>Ordina</span><select id="sort"><option value="date">Data</option><option value="priority">Priorità</option><option value="title">Nome</option></select></label></div>
           <ul id="task-list" class="task-list"></ul>
           <div id="empty-state" class="empty-state" hidden><span>✦</span><h3>Nessuna attività qui</h3><p>Prova un altro filtro oppure crea un nuovo promemoria.</p><button id="empty-add" class="text-button" type="button">＋ Crea attività</button></div>
         </section>

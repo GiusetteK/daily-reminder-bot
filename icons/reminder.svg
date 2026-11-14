@@ -1,6 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-  <rect width="128" height="128" rx="28" fill="#6459d9"/>
-  <circle cx="64" cy="65" r="39" fill="none" stroke="#fff" stroke-width="9"/>
-  <path d="M64 40v27l18 11" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="9"/>
-  <path d="M48 13h32" stroke="#fff" stroke-linecap="round" stroke-width="9"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Promemoria">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8172f1"/><stop offset="1" stop-color="#5144c6"/></linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#28205f" flood-opacity=".2"/></filter>
+  </defs>
+  <rect x="4" y="4" width="120" height="120" rx="34" fill="url(#g)"/>
+  <g filter="url(#s)"><rect x="28" y="31" width="72" height="70" rx="20" fill="#fff"/></g>
+  <path d="M43 27v12M85 27v12" stroke="#fff" stroke-linecap="round" stroke-width="8"/>
+  <path d="M47 64l11 11 24-25" fill="none" stroke="#6658d9" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+  <circle cx="90" cy="91" r="16" fill="#36bd8a" stroke="#fff" stroke-width="5"/>
 </svg>
